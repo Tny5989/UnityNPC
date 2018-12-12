@@ -8,6 +8,9 @@ require('logger')
 packets = require('util/packets')
 settings = require('util/settings')
 
+local CommandFactory = require('command/factory')
+local NilCommand = require('command/nil')
+
 --------------------------------------------------------------------------------
 local command = NilCommand:NilCommand()
 

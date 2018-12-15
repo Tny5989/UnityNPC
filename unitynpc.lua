@@ -7,6 +7,7 @@ _addon.commands = {'unpc'}
 require('logger')
 packets = require('util/packets')
 settings = require('util/settings')
+resources = require('resources')
 
 local CommandFactory = require('command/factory')
 local NilCommand = require('command/nil')

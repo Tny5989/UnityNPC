@@ -21,9 +21,9 @@ end
 function WarpMenuTests:TestOptionForKnownWarp()
     local menu = WarpMenu:WarpMenu(1234, { 1, 2 })
     LuaUnit.assertEquals(menu:OptionFor(1),
-        { option = 1 * (2^4) + 1, automated = true })
+        { option = 1 * (2^4) + 1, automated = false })
     LuaUnit.assertEquals(menu:OptionFor(2),
-        { option = 2 * (2^4) + 1, automated = true })
+        { option = 2 * (2^4) + 1, automated = false })
 end
 
 --------------------------------------------------------------------------------

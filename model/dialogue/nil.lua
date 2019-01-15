@@ -1,4 +1,4 @@
-local NilNpc = require('model/npc/nil')
+local NilEntity = require('model/entity/nil')
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -11,7 +11,7 @@ function NilDialogue:NilDialogue()
     setmetatable(o, self)
     o._on_failure = function() end
     o._on_success = function() end
-    o._target = NilNpc:NilNpc()
+    o._target = NilEntity:NilEntity()
     o._type = 'NilDialogue'
 
     return o

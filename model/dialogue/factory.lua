@@ -7,12 +7,12 @@ local DialogueFactory = {}
 
 --------------------------------------------------------------------------------
 function DialogueFactory.CreateWarpDialogue(npc, zone_idx)
-    if not npc or npc:Entity():Type() == 'NilEntity' then
+    if not npc or npc:Type() == 'NilEntity' then
         log('Unable to find unity npc')
         return NilDialogue:NilDialogue()
     end
 
-    if npc:Entity():Distance() > settings.config.maxdistance then
+    if npc:Distance() > settings.config.maxdistance then
         log('Npc too far away')
         return NilDialogue:NilDialogue()
     end

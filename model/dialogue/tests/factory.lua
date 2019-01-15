@@ -1,6 +1,6 @@
 local LuaUnit = require('luaunit')
 local DialogueFactory = require('model/dialogue/factory')
-local NpcFactory = require('model/npc/factory')
+local EntityFactory = require('model/entity/factory')
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -12,6 +12,10 @@ function DialogueFactoryTests:SetUp()
     windower.ffxi = {}
     function windower.ffxi.get_mob_by_id(id)
         return { id = id, index = 4321, distance = 5, valid_target = true }
+    end
+
+    function windower.ffxi.get_info()
+        return { zone = 11 }
     end
 
     settings = {}
@@ -30,13 +34,13 @@ end
 
 --------------------------------------------------------------------------------
 function DialogueFactoryTests:TestNilDialogueCreatedWhenNilNpc()
-    local npc = DialogueFactory.CreateWarpDialogue(NpcFactory.CreateNpc(), 2)
+    local npc = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(), 2)
     LuaUnit.assertEquals(npc:Type(), 'NilDialogue')
 end
 
 --------------------------------------------------------------------------------
 function DialogueFactoryTests:TestNilDialogueCreatedWhenBadZoneIdx()
-    local npc = DialogueFactory.CreateWarpDialogue(NpcFactory.CreateNpc(1234, 4321, 110), nil)
+    local npc = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(1234), nil)
     LuaUnit.assertEquals(npc:Type(), 'NilDialogue')
 end
 
@@ -46,7 +50,7 @@ function DialogueFactoryTests:TestNilDialogueCreatedWhenBadEntity()
         return nil
     end
 
-    local key = DialogueFactory.CreateWarpDialogue(NpcFactory.CreateNpc(1234, 4321, 110), 2)
+    local key = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(1234), 2)
     LuaUnit.assertEquals(key:Type(), 'NilDialogue')
 end
 
@@ -56,13 +60,13 @@ function DialogueFactoryTests:TestNilDialogueCreatedWhenFarAway()
         return { id = id, index = 4321, distance = 2000, valid_target = true }
     end
 
-    local key = DialogueFactory.CreateWarpDialogue(NpcFactory.CreateNpc(1234, 4321, 110), 2)
+    local key = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(1234), 2)
     LuaUnit.assertEquals(key:Type(), 'NilDialogue')
 end
 
 --------------------------------------------------------------------------------
 function DialogueFactoryTests:TestWarpDialogueCreatedWhenValidParams()
-    local npc = DialogueFactory.CreateWarpDialogue(NpcFactory.CreateNpc(1234, 110), 2)
+    local npc = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(1234), 2)
     LuaUnit.assertEquals(npc:Type(), 'WarpDialogue')
 end
 

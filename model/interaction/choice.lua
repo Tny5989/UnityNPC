@@ -4,7 +4,7 @@ local NilInteraction = require('model/interaction/nil')
 local function CreateChoicePacket(target, menu, choice, automated)
     local pkt = packets.new('outgoing', 0x05B)
     pkt['Target'] = target:Id()
-    pkt['Target Index'] = target:Entity():Index()
+    pkt['Target Index'] = target:Index()
     pkt['Option Index'] = choice
     pkt['Automated Message'] = automated
     pkt['Zone'] = target:Zone()

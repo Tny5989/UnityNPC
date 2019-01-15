@@ -28,7 +28,7 @@ function CommandFactory.CreateCommand(cmd, name)
         local warp = Warps.GetByProperty('zone', StringToZoneId(name))
         local npc = Npcs.GetForCurrentZone()
 
-        return WarpCommand:WarpCommand(npc.id, npc.zone, warp.idx)
+        return WarpCommand:WarpCommand(npc.id, warp.idx)
     else
         log('Unknown command')
         return NilCommand:NilCommand()

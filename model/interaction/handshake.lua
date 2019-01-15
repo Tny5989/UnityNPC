@@ -4,7 +4,7 @@ local NilInteraction = require('model/interaction/nil')
 local function CreateActionPacket(target)
     local pkt = packets.new('outgoing', 0x01A)
     pkt['Target'] = target:Id()
-    pkt['Target Index'] = target:Entity():Index()
+    pkt['Target Index'] = target:Index()
     return pkt
 end
 

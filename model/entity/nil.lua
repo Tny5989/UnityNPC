@@ -10,6 +10,7 @@ function NilEntity:NilEntity()
     setmetatable(o, self)
     o._id = 0
     o._index = 0
+    o._zone = 0
     o._distance = NilEntity.MAX_DISTANCE
     o._type = 'NilEntity'
     return o
@@ -23,6 +24,11 @@ end
 --------------------------------------------------------------------------------
 function NilEntity:Index()
     return self._index
+end
+
+--------------------------------------------------------------------------------
+function NilEntity:Zone()
+    return self._zone
 end
 
 --------------------------------------------------------------------------------

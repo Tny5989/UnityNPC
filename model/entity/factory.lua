@@ -16,7 +16,12 @@ function EntityFactory.CreateMob(mob_id)
         return NilEntity:NilEntity()
     end
 
-    return MobEntity:MobEntity(mob)
+    local info = windower.ffxi.get_info()
+    if not info or not info.zone then
+        return NilEntity:NilEntity()
+    end
+
+    return MobEntity:MobEntity(mob, info.zone)
 end
 
 return EntityFactory

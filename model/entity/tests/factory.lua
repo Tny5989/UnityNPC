@@ -36,11 +36,31 @@ function EntityFactoryTests:TestNilEntityCreatedWhenInvalidTarget()
 end
 
 --------------------------------------------------------------------------------
+function EntityFactoryTests:TestNilEntityCreatedWhenUnableToGetZone()
+    windower = {}
+    windower.ffxi = {}
+    function windower.ffxi.get_mob_by_id(id)
+        return { id = id, index = 4321, distance = 9999, valid_target = true }
+    end
+
+    function windower.ffxi.get_info()
+        return nil
+    end
+
+    local e = EntityFactory.CreateMob(1234)
+    LuaUnit.assertEquals(e:Type(), 'NilEntity')
+end
+
+--------------------------------------------------------------------------------
 function EntityFactoryTests:TestMobEntityCreatedWhenAllInformationObtained()
     windower = {}
     windower.ffxi = {}
     function windower.ffxi.get_mob_by_id(id)
         return { id = id, index = 4321, distance = 9999, valid_target = true }
+    end
+
+    function windower.ffxi.get_info()
+        return { zone = 11 }
     end
 
     local e = EntityFactory.CreateMob(1234)

@@ -15,7 +15,7 @@ function WarpMenu:WarpMenu(id, choices)
     o._type = 'WarpMenu'
 
     for _, value in pairs(choices) do
-        o._choices[value] = { option = value * (2^4) + 1, automated = false }
+        o._choices[value] = { option = value * (2^5) + 1, automated = false }
     end
 
     setmetatable(o._choices,

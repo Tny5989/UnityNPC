@@ -1,6 +1,5 @@
 local LuaUnit = require('luaunit')
 local WarpDialogue = require('model/dialogue/warp')
-local EntityNpc = require('model/npc/entity')
 local NilEntity = require('model/entity/nil')
 
 --------------------------------------------------------------------------------
@@ -9,11 +8,12 @@ local MockEntity = NilEntity:NilEntity()
 MockEntity.__index = MockEntity
 
 --------------------------------------------------------------------------------
-function MockEntity:MockEntity(id, idx)
+function MockEntity:MockEntity(id, idx, zone)
     local o = NilEntity:NilEntity()
     setmetatable(o, self)
     o._id = id
     o._index = idx
+    o._zone = zone
     return o
 end
 
@@ -40,7 +40,7 @@ end
 
 --------------------------------------------------------------------------------
 function WarpDialogueTests:TestPacketsSent()
-    local npc = EntityNpc:EntityNpc(1234, 1, MockEntity:MockEntity(1234, 4))
+    local npc = MockEntity:MockEntity(1234, 4, 11)
     local dialogue = WarpDialogue:WarpDialogue(npc, 2)
 
     local fc = 0
@@ -87,7 +87,7 @@ end
 
 --------------------------------------------------------------------------------
 function WarpDialogueTests:TestDialogueFailsOnEarly52()
-    local npc = EntityNpc:EntityNpc(1234, 1, MockEntity:MockEntity(1234, 4))
+    local npc = MockEntity:MockEntity(1234, 4, 11)
     local dialogue = WarpDialogue:WarpDialogue(npc)
 
     local fc = 0

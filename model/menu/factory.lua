@@ -25,10 +25,10 @@ function MenuFactory.CreateMenu(pkt)
 
     local params = ppkt['Menu Parameters']
     if not params then
-        return SimpleMenu:SimpleMenu(menu_id, 0, false)
+        return SimpleMenu:SimpleMenu(menu_id, 0, false, 0)
     end
 
-    return SimpleMenu:SimpleMenu(menu_id, 10, true)
+    return SimpleMenu:SimpleMenu(menu_id, 10, true, 0)
 end
 
 --------------------------------------------------------------------------------

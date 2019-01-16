@@ -8,12 +8,11 @@ local MockEntity = NilEntity:NilEntity()
 MockEntity.__index = MockEntity
 
 --------------------------------------------------------------------------------
-function MockEntity:MockEntity(id, idx, zone)
+function MockEntity:MockEntity(id, idx)
     local o = NilEntity:NilEntity()
     setmetatable(o, self)
     o._id = id
     o._index = idx
-    o._zone = zone
     return o
 end
 
@@ -37,8 +36,9 @@ end
 --------------------------------------------------------------------------------
 function ChoiceTests:TestFirstPacketGroupIsChoicePacket()
     local choice = Choice:Choice()
-    local target = MockEntity:MockEntity(1234, 1111, 11)
-    local pkts = choice:_GeneratePackets(target, 9002, 12, true)
+    local target = MockEntity:MockEntity(1234, 1)
+    local data = { target = target, menu = 9002, choice = 12, automated = true, cycles = 0 }
+    local pkts = choice:_GeneratePackets(data)
     LuaUnit.assertEquals(#pkts, 1)
     LuaUnit.assertEquals(pkts[1].id, 0x05B)
     LuaUnit.assertEquals(pkts[1].dir, 'outgoing')
@@ -47,19 +47,21 @@ end
 --------------------------------------------------------------------------------
 function ChoiceTests:TestSecondPacketGroupIsEmpty()
     local choice = Choice:Choice()
-    local target = MockEntity:MockEntity(1234, 1111, 11)
-    choice:_GeneratePackets(target, 9002, 12, true)
-    local pkts = choice:_GeneratePackets(target, 9002, 12, true)
+    local target = MockEntity:MockEntity(1234, 1)
+    local data = { target = target, menu = 9002, choice = 12, automated = true, cycles = 0 }
+    choice:_GeneratePackets(data)
+    local pkts = choice:_GeneratePackets(data)
     LuaUnit.assertEquals(0, #pkts)
 end
 
 --------------------------------------------------------------------------------
 function ChoiceTests:TestCallingInjectsPackets()
     local choice = Choice:Choice()
-    local target = MockEntity:MockEntity(1234, 1111, 11)
-    choice(target, 9002, 0x01, true)
+    local target = MockEntity:MockEntity(1234, 1)
+    local data = { target = target, menu = 9002, choice = 0x01, automated = true, cycles = 0 }
+    choice(data)
     LuaUnit.assertEquals(packets.injectcount, 1)
-    choice(target, 9002, 0x01, true)
+    choice(data)
     LuaUnit.assertEquals(packets.injectcount, 1)
 end
 

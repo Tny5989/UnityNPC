@@ -1,14 +1,15 @@
 local NilInteraction = require('model/interaction/nil')
 
 --------------------------------------------------------------------------------
-local function CreateChoicePacket(target, menu, choice, automated)
+local function CreateChoicePacket(data)
     local pkt = packets.new('outgoing', 0x05B)
-    pkt['Target'] = target:Id()
-    pkt['Target Index'] = target:Index()
-    pkt['Option Index'] = choice
-    pkt['Automated Message'] = automated
-    pkt['Zone'] = target:Zone()
-    pkt['Menu ID'] = menu
+    pkt['Target'] = data.target:Id()
+    pkt['Target Index'] = data.target:Index()
+    pkt['Option Index'] = data.choice
+    pkt['_unknown1'] = data.cycles
+    pkt['Automated Message'] = data.automated
+    pkt['Zone'] = data.target:Zone()
+    pkt['Menu ID'] = data.menu
     return pkt
 end
 
@@ -21,7 +22,7 @@ Choice.__index = Choice
 function Choice:Choice()
     local o = NilInteraction:NilInteraction()
     setmetatable(o, self)
-    o._to_send = { [1] = function(target, menu, choice, automated) return {CreateChoicePacket(target, menu, choice, automated)} end }
+    o._to_send = { [1] = function(data) return {CreateChoicePacket(data)} end }
     o._idx = 1
     o._type = 'Choice'
 
@@ -36,8 +37,6 @@ function Choice:OnIncomingData(id, pkt)
     -- TODO failure condition? 0x052 with 5th byte set differently?
     if id == 0x052 then
         self._on_success()
-        self._on_success = function() end
-        self._on_failure = function() end
         return true
     else
         return false
@@ -45,15 +44,15 @@ function Choice:OnIncomingData(id, pkt)
 end
 
 --------------------------------------------------------------------------------
-function Choice:_GeneratePackets(target, menu, choice, automated)
-    local pkts = self._to_send[self._idx](target, menu, choice, automated)
+function Choice:_GeneratePackets(data)
+    local pkts = self._to_send[self._idx](data)
     self._idx = self._idx + 1
     return pkts
 end
 
 --------------------------------------------------------------------------------
-function Choice:__call(target, menu, choice, automated)
-    local pkts = self:_GeneratePackets(target, menu, choice, automated)
+function Choice:__call(data)
+    local pkts = self:_GeneratePackets(data)
     for _, pkt in pairs(pkts) do
         packets.inject(pkt)
     end

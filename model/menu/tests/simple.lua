@@ -13,8 +13,8 @@ end
 
 --------------------------------------------------------------------------------
 function SimpleMenuTests:TestOptionForResult()
-    local menu = SimpleMenu:SimpleMenu(1234, 1, false)
-    LuaUnit.assertEquals(menu:OptionFor(), { option = 1, automated = false })
+    local menu = SimpleMenu:SimpleMenu(1234, 1, false, 1)
+    LuaUnit.assertEquals(menu:OptionFor(), { option = 1, automated = false, cycle = 1 })
 end
 
 --------------------------------------------------------------------------------

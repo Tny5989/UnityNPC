@@ -1,10 +1,10 @@
 local NilInteraction = require('model/interaction/nil')
 
 --------------------------------------------------------------------------------
-local function CreateActionPacket(target)
+local function CreateActionPacket(data)
     local pkt = packets.new('outgoing', 0x01A)
-    pkt['Target'] = target:Id()
-    pkt['Target Index'] = target:Index()
+    pkt['Target'] = data.target:Id()
+    pkt['Target Index'] = data.target:Index()
     return pkt
 end
 
@@ -17,7 +17,7 @@ Handshake.__index = Handshake
 function Handshake:Handshake()
     local o = NilInteraction:NilInteraction()
     setmetatable(o, self)
-    o._to_send = { [1] = function(target) return {CreateActionPacket(target)} end }
+    o._to_send = { [1] = function(data) return {CreateActionPacket(data)} end }
     o._idx = 1
     o._type = 'Handshake'
 
@@ -30,13 +30,9 @@ end
 function Handshake:OnIncomingData(id, _)
     if id == 0x052 then
         self._on_failure()
-        self._on_failure = function() end
-        self._on_success = function() end
         return true
     elseif id == 0x034 or id == 0x032 then
         self._on_success()
-        self._on_success = function() end
-        self._on_failure = function() end
         return true
     else
         return false
@@ -44,15 +40,15 @@ function Handshake:OnIncomingData(id, _)
 end
 
 --------------------------------------------------------------------------------
-function Handshake:_GeneratePackets(target)
-    local pkts = self._to_send[self._idx](target)
+function Handshake:_GeneratePackets(data)
+    local pkts = self._to_send[self._idx](data)
     self._idx = self._idx + 1
     return pkts
 end
 
 --------------------------------------------------------------------------------
-function Handshake:__call(target)
-    local pkts = self:_GeneratePackets(target)
+function Handshake:__call(data)
+    local pkts = self:_GeneratePackets(data)
     for _, pkt in pairs(pkts) do
         packets.inject(pkt)
     end

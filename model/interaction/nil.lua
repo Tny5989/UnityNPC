@@ -29,6 +29,11 @@ function NilInteraction:OnIncomingData(id, pkt)
 end
 
 --------------------------------------------------------------------------------
+function NilInteraction:OnOutgoingData(id, pkt)
+    return false
+end
+
+--------------------------------------------------------------------------------
 function NilInteraction:Type()
     return self._type
 end
@@ -36,8 +41,6 @@ end
 --------------------------------------------------------------------------------
 function NilInteraction:__call()
     self._on_success()
-    self._on_success = function() end
-    self._on_failure = function() end
 end
 
 return NilInteraction

@@ -8,12 +8,11 @@ local MockEntity = NilEntity:NilEntity()
 MockEntity.__index = MockEntity
 
 --------------------------------------------------------------------------------
-function MockEntity:MockEntity(id, idx, zone)
+function MockEntity:MockEntity(id, idx)
     local o = NilEntity:NilEntity()
     setmetatable(o, self)
     o._id = id
     o._index = idx
-    o._zone = zone
     return o
 end
 
@@ -37,8 +36,8 @@ end
 --------------------------------------------------------------------------------
 function HandshakeTests:TestFirstPacketGroupIsActionPacket()
     local handshake = Handshake:Handshake()
-    local target = MockEntity:MockEntity(1234, 1111, 11)
-    local pkts = handshake:_GeneratePackets(target)
+    local target = MockEntity:MockEntity(1234, 1)
+    local pkts = handshake:_GeneratePackets({ target = target })
     LuaUnit.assertEquals(1, #pkts)
     LuaUnit.assertEquals(pkts[1].id, 0x01A)
     LuaUnit.assertEquals(pkts[1].dir, 'outgoing')
@@ -47,19 +46,20 @@ end
 --------------------------------------------------------------------------------
 function HandshakeTests:TestSecondPacketGroupIsEmpty()
     local handshake = Handshake:Handshake()
-    local target = MockEntity:MockEntity(1234, 1111, 11)
-    handshake:_GeneratePackets(target)
-    local pkts = handshake:_GeneratePackets(target)
+    local target = MockEntity:MockEntity(1234, 1)
+    handshake:_GeneratePackets({ target = target })
+    local pkts = handshake:_GeneratePackets({ target = target })
     LuaUnit.assertEquals(0, #pkts)
 end
 
 --------------------------------------------------------------------------------
 function HandshakeTests:TestCallingInjectsPackets()
     local handshake = Handshake:Handshake()
-    local target = MockEntity:MockEntity(1234, 1111, 11)
-    handshake(target)
+    local target = MockEntity:MockEntity(1234, 1)
+    local data = { target = target }
+    handshake(data)
     LuaUnit.assertEquals(packets.injectcount, 1)
-    handshake(target)
+    handshake(data)
     LuaUnit.assertEquals(packets.injectcount, 1)
 end
 

@@ -14,16 +14,16 @@ end
 --------------------------------------------------------------------------------
 function WarpMenuTests:TestOptionForUnknownWarp()
     local menu = WarpMenu:WarpMenu(1234, {})
-    LuaUnit.assertEquals(menu:OptionFor('a'), { option = 0, automated = false })
+    LuaUnit.assertEquals(menu:OptionFor('a'), { option = 0, automated = false, cycle = 0 })
 end
 
 --------------------------------------------------------------------------------
 function WarpMenuTests:TestOptionForKnownWarp()
     local menu = WarpMenu:WarpMenu(1234, { 1, 2 })
     LuaUnit.assertEquals(menu:OptionFor(1),
-        { option = 1 * (2^4) + 1, automated = false })
+        { option = 1 * (2^5) + 1, automated = false, cycle = 0 })
     LuaUnit.assertEquals(menu:OptionFor(2),
-        { option = 2 * (2^4) + 1, automated = false })
+        { option = 2 * (2^5) + 1, automated = false, cycle = 0 })
 end
 
 --------------------------------------------------------------------------------

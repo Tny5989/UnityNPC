@@ -4,11 +4,11 @@ local NilMenu = {}
 NilMenu.__index = NilMenu
 
 --------------------------------------------------------------------------------
-function NilMenu:NilMenu()
+function NilMenu:NilMenu(id)
     local o = {}
     setmetatable(o, self)
-    o._id = 0
-    o._option = { option = 0, automated = false }
+    o._id = id
+    o._option = { option = 0, automated = false, cycle = 0 }
     o._type = 'NilMenu'
     return o
 end

@@ -37,6 +37,12 @@ function NilInteractionTests:TestOnIncomingDataReturnsFalse()
 end
 
 --------------------------------------------------------------------------------
+function NilInteractionTests:TestOnOutgoingDataReturnsFalse()
+    local interaction = NilInteraction:NilInteraction()
+    LuaUnit.assertFalse(interaction:OnOutgoingData(0x015, {}))
+end
+
+--------------------------------------------------------------------------------
 function NilInteractionTests:TestFailureCallbackIsNeverCalled()
     local interaction = NilInteraction:NilInteraction()
     local count = 0

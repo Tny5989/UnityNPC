@@ -39,8 +39,14 @@ function DialogueFactoryTests:TestNilDialogueCreatedWhenNilNpc()
 end
 
 --------------------------------------------------------------------------------
-function DialogueFactoryTests:TestNilDialogueCreatedWhenBadZoneIdx()
+function DialogueFactoryTests:TestNilDialogueCreatedWhenBadZone()
     local npc = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(1234), nil)
+    LuaUnit.assertEquals(npc:Type(), 'NilDialogue')
+end
+
+--------------------------------------------------------------------------------
+function DialogueFactoryTests:TestNilDialogueCreatedWhenNegativeZone()
+    local npc = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(1234), -1)
     LuaUnit.assertEquals(npc:Type(), 'NilDialogue')
 end
 

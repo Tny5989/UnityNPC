@@ -17,7 +17,7 @@ function DialogueFactory.CreateWarpDialogue(npc, zone_idx)
         return NilDialogue:NilDialogue()
     end
 
-    if not zone_idx then
+    if not zone_idx or zone_idx < 0 then
         log('Cannot warp to zone')
         return NilDialogue:NilDialogue()
     end

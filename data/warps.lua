@@ -29,7 +29,7 @@ local Warps = {}
 -- No, I don't care.  They seem to warp to the same place.
 
 Warps.Values = {}
-Warps.Values[''] = { zone = 000, idx = 0 }
+Warps.Values[''] = { zone = 000, idx = -1 }
 
 -- East Ronfaure
 Warps.Values[101] = { zone = 101, idx = 00 }

@@ -1,3 +1,5 @@
+local NilInventory = require('model/inventory/nil')
+
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 local NilEntity = {}
@@ -13,6 +15,7 @@ function NilEntity:NilEntity()
     o._zone = 0
     o._distance = NilEntity.MAX_DISTANCE
     o._type = 'NilEntity'
+    o._bag = NilInventory:NilInventory()
     return o
 end
 
@@ -27,18 +30,23 @@ function NilEntity:Index()
 end
 
 --------------------------------------------------------------------------------
-function NilEntity:Zone()
-    return self._zone
-end
-
---------------------------------------------------------------------------------
 function NilEntity:Distance()
     return self._distance
 end
 
 --------------------------------------------------------------------------------
+function NilEntity:Zone()
+    return self._zone
+end
+
+--------------------------------------------------------------------------------
 function NilEntity:Type()
     return self._type
+end
+
+--------------------------------------------------------------------------------
+function NilEntity:Bag()
+    return self._bag
 end
 
 return NilEntity

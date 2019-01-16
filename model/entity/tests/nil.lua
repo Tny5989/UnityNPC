@@ -18,21 +18,21 @@ function NilEntityTests:TestDefaultIndexIsZero()
 end
 
 --------------------------------------------------------------------------------
-function NilEntityTests:TestDefaultZoneIsZero()
-    local npc = NilEntity:NilEntity()
-    LuaUnit.assertEquals(npc:Zone(), 0)
-end
-
---------------------------------------------------------------------------------
 function NilEntityTests:TestDefaultDistanceIsMax()
     local e = NilEntity:NilEntity()
     LuaUnit.assertEquals(e:Distance(), NilEntity.MAX_DISTANCE)
 end
 
 --------------------------------------------------------------------------------
-function NilEntityTests:TestTypeIsNilEntity()
+function NilEntityTests:TestTypeIsEntity()
     local e = NilEntity:NilEntity()
     LuaUnit.assertEquals(e:Type(), 'NilEntity')
+end
+
+--------------------------------------------------------------------------------
+function NilEntityTests:TestBagTypeIsNil()
+    local e = NilEntity:NilEntity()
+    LuaUnit.assertEquals(e:Bag():Type(), 'NilInventory')
 end
 
 LuaUnit.LuaUnit.run('NilEntityTests')

@@ -13,6 +13,14 @@ function CommandFactoryTests:SetUp()
         return {id = id, index = 4321, distance = 5}
     end
 
+    function windower.ffxi.get_player()
+        return { id = 9999, index = 8888, distance = 0 }
+    end
+
+    function windower.ffxi.get_items()
+        return { max = 0, count = 0 }
+    end
+
     function windower.ffxi.get_info()
         return {zone = 110}
     end
@@ -57,6 +65,18 @@ end
 function CommandFactoryTests:TestWarpCommmandCreatedForValidWarp()
     local c = CommandFactory.CreateCommand('warp', '')
     LuaUnit.assertEquals(c:Type(), 'WarpCommand')
+end
+
+--------------------------------------------------------------------------------
+function CommandFactoryTests:TestBuyCommandCreatedWhenValidParams()
+    local c = CommandFactory.CreateCommand('buy', 'SP Gobbie Key', 2)
+    LuaUnit.assertEquals(c:Type(), 'BuyCommand')
+end
+
+--------------------------------------------------------------------------------
+function CommandFactoryTests:TestNilCommandCreatedWhenBadBuyParam()
+    local c = CommandFactory.CreateCommand('buy', nil, 2)
+    LuaUnit.assertEquals(c:Type(), 'NilCommand')
 end
 
 LuaUnit.LuaUnit.run('CommandFactoryTests')

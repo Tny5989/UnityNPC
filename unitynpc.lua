@@ -26,9 +26,9 @@ local function OnLoad()
 end
 
 --------------------------------------------------------------------------------
-local function OnCommand(cmd, name)
+local function OnCommand(cmd, p1, p2)
     if command:Type() == 'NilCommand' then
-        command = CommandFactory.CreateCommand(cmd, name)
+        command = CommandFactory.CreateCommand(cmd, p1, p2)
         command:SetSuccessCallback(OnCommandFinished)
         command:SetFailureCallback(OnCommandFinished)
         command()

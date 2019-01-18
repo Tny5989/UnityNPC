@@ -28,6 +28,10 @@ function CommandFactoryTests:SetUp()
 
     function resources.zones.with()
     end
+
+    settings = {}
+    settings.config = {}
+    settings.config.maxdistance = 25
 end
 
 

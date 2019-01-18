@@ -39,29 +39,6 @@ function WarpCommandTests:TestSuccessCallbackCalled()
 end
 
 --------------------------------------------------------------------------------
-function WarpCommandTests:TestSuccessCallbackOnlyCalledOnce()
-    local sc = 0
-    function success()
-        sc = sc + 1
-    end
-
-    local fc = 0
-    function failure()
-        fc = fc + 1
-    end
-
-    local c = WarpCommand:WarpCommand() -- Don't pass parameters to force a NilDialogue to be created.
-    c:SetSuccessCallback(success)
-    c:SetFailureCallback(failure)
-    c()
-    c()
-    c()
-
-    LuaUnit.assertEquals(sc, 1)
-    LuaUnit.assertEquals(fc, 0)
-end
-
---------------------------------------------------------------------------------
 function WarpCommandTests:TestTypeIsWarpCommand()
     local c = WarpCommand:WarpCommand()
     LuaUnit.assertEquals(c:Type(), 'WarpCommand')

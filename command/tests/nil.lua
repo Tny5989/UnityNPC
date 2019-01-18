@@ -12,6 +12,12 @@ function NilCommandTests:TestOnIncomingDataReturnFalse()
 end
 
 --------------------------------------------------------------------------------
+function NilCommandTests:TestOnOutgoingDataReturnFalse()
+    local c = NilCommand:NilCommand()
+    LuaUnit.assertFalse(c:OnOutgoingData(0x052, {}))
+end
+
+--------------------------------------------------------------------------------
 function NilCommandTests:TestNilCommandWindowerRequirement()
     windower = nil
     NilCommand:NilCommand()()

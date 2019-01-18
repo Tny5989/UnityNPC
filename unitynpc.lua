@@ -44,7 +44,7 @@ end
 
 --------------------------------------------------------------------------------
 local function OnOutgoingData(id, _, pkt, b, i)
-    return state.command:OnOutgoingData(id, pkt)
+    return command:OnOutgoingData(id, pkt)
 end
 
 --------------------------------------------------------------------------------

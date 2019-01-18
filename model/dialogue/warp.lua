@@ -79,7 +79,7 @@ function WarpDialogue:_OnSuccess()
     local next = self._interactions[self._idx]
 
     local data = { target = self._target, menu = menu_id, choice = option.option,
-        automated = option.automated, cycles = option.cycle, }
+        automated = option.automated, uk1 = option.uk1, }
     next(data)
 end
 

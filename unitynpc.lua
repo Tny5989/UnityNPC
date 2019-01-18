@@ -10,6 +10,7 @@ settings = require('util/settings')
 resources = require('resources')
 
 local CommandFactory = require('command/factory')
+local Aliases = require('util/aliases')
 local NilCommand = require('command/nil')
 
 --------------------------------------------------------------------------------
@@ -23,6 +24,7 @@ end
 --------------------------------------------------------------------------------
 local function OnLoad()
     settings.load()
+    Aliases.Update()
 end
 
 --------------------------------------------------------------------------------

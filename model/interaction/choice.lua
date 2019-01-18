@@ -6,7 +6,7 @@ local function CreateChoicePacket(data)
     pkt['Target'] = data.target:Id()
     pkt['Target Index'] = data.target:Index()
     pkt['Option Index'] = data.choice
-    pkt['_unknown1'] = data.cycles
+    pkt['_unknown1'] = data.uk1
     pkt['Automated Message'] = data.automated
     pkt['Zone'] = data.target:Zone()
     pkt['Menu ID'] = data.menu

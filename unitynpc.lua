@@ -10,6 +10,7 @@ settings = require('util/settings')
 resources = require('resources')
 
 local CommandFactory = require('command/factory')
+local Aliases = require('util/aliases')
 local NilCommand = require('command/nil')
 
 --------------------------------------------------------------------------------
@@ -23,12 +24,13 @@ end
 --------------------------------------------------------------------------------
 local function OnLoad()
     settings.load()
+    Aliases.Update()
 end
 
 --------------------------------------------------------------------------------
-local function OnCommand(cmd, name)
+local function OnCommand(cmd, p1, p2)
     if command:Type() == 'NilCommand' then
-        command = CommandFactory.CreateCommand(cmd, name)
+        command = CommandFactory.CreateCommand(cmd, p1, p2)
         command:SetSuccessCallback(OnCommandFinished)
         command:SetFailureCallback(OnCommandFinished)
         command()
@@ -44,7 +46,7 @@ end
 
 --------------------------------------------------------------------------------
 local function OnOutgoingData(id, _, pkt, b, i)
-    return state.command:OnOutgoingData(id, pkt)
+    return command:OnOutgoingData(id, pkt)
 end
 
 --------------------------------------------------------------------------------

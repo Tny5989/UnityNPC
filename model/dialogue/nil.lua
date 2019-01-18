@@ -1,5 +1,3 @@
-local NilEntity = require('model/entity/nil')
-
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 local NilDialogue = {}
@@ -11,7 +9,6 @@ function NilDialogue:NilDialogue()
     setmetatable(o, self)
     o._on_failure = function() end
     o._on_success = function() end
-    o._target = NilEntity:NilEntity()
     o._type = 'NilDialogue'
 
     return o
@@ -39,12 +36,7 @@ end
 
 --------------------------------------------------------------------------------
 function NilDialogue:Start()
-    self._on_failure()
-end
-
---------------------------------------------------------------------------------
-function NilDialogue:Target()
-    return self._target
+    self._on_success()
 end
 
 --------------------------------------------------------------------------------

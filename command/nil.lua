@@ -29,6 +29,11 @@ function NilCommand:OnIncomingData(id, pkt)
 end
 
 --------------------------------------------------------------------------------
+function NilCommand:OnOutgoingData(id, pkt)
+    return false
+end
+
+--------------------------------------------------------------------------------
 function NilCommand:Type()
     return self._type
 end

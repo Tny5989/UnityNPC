@@ -9,11 +9,12 @@ local WarpCommand = NilCommand:NilCommand()
 WarpCommand.__index = WarpCommand
 
 --------------------------------------------------------------------------------
-function WarpCommand:WarpCommand(id, zone_idx)
+function WarpCommand:WarpCommand(id, zone)
     local o = NilCommand:NilCommand()
     setmetatable(o, self)
     o._npc = EntityFactory.CreateMob(id)
-    o._dialogue = DialogueFactory.CreateWarpDialogue(o._npc, zone_idx)
+    o._zone = zone
+    o._dialogue = DialogueFactory.CreateWarpDialogue(o._npc, o._zone)
     o._dialogue:SetSuccessCallback(function() o._on_success() end)
     o._dialogue:SetFailureCallback(function() o._on_failure() end)
     o._type = 'WarpCommand'

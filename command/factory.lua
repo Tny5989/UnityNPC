@@ -30,10 +30,10 @@ function CommandFactory.CreateCommand(cmd, p1, p2)
         local warp = Warps.GetByProperty('zone', StringToZoneId(p1))
         local npc = Npcs.GetForCurrentZone()
 
-        return WarpCommand:WarpCommand(npc.id, warp.idx)
+        return WarpCommand:WarpCommand(npc.id, warp)
     elseif cmd == 'buy' then
-        local key = Items.GetByProperty('en', p1)
-        if key.id == 0 then
+        local item = Items.GetByProperty('en', p1)
+        if item.id == 0 then
             log('Invalid item argument')
             return NilCommand:NilCommand()
         end
@@ -42,7 +42,7 @@ function CommandFactory.CreateCommand(cmd, p1, p2)
             return NilCommand:NilCommand()
         end
         local npc = Npcs.GetForCurrentZone()
-        return BuyCommand:BuyCommand(npc.id, key.idx, npc.zone, tonumber(p2))
+        return BuyCommand:BuyCommand(npc.id, item, npc.zone, tonumber(p2))
     else
         log('Unknown command')
         return NilCommand:NilCommand()

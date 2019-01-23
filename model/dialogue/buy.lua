@@ -11,11 +11,11 @@ local BuyDialogue = NilDialogue:NilDialogue()
 BuyDialogue.__index = BuyDialogue
 
 --------------------------------------------------------------------------------
-function BuyDialogue:BuyDialogue(target, item_idx, count)
+function BuyDialogue:BuyDialogue(target, item, count)
     local o = NilDialogue:NilDialogue()
     setmetatable(o, self)
     o._target = target
-    o._item_idx = item_idx
+    o._item = item
     o._count = count
     o._type = 'BuyDialogue'
     o._menu = NilMenu:NilMenu()
@@ -45,7 +45,7 @@ function BuyDialogue:OnIncomingData(id, pkt)
         self:_AppendInteraction(Choice:Choice())
     elseif id == 0x05C then
         block = true
-        self._menu = MenuFactory.CreateExtraMenu(pkt, self._menu, self._item_idx, self._count)
+        self._menu = MenuFactory.CreateExtraMenu(pkt, self._menu, self._item.idx, self._count)
         self:_AppendInteraction(Choice:Choice())
     end
 
@@ -59,6 +59,7 @@ end
 
 --------------------------------------------------------------------------------
 function BuyDialogue:Start()
+    log('Buying ' .. self._count .. ' ' .. self._item.en)
     self:_OnSuccess()
 end
 

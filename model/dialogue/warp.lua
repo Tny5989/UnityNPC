@@ -11,11 +11,11 @@ local WarpDialogue = NilDialogue:NilDialogue()
 WarpDialogue.__index = WarpDialogue
 
 --------------------------------------------------------------------------------
-function WarpDialogue:WarpDialogue(target, zone_idx)
+function WarpDialogue:WarpDialogue(target, zone)
     local o = NilDialogue:NilDialogue()
     setmetatable(o, self)
     o._target = target
-    o._zone_idx = zone_idx
+    o._zone = zone
     o._type = 'WarpDialogue'
     o._menu = NilMenu:NilMenu()
     o._interactions = {}
@@ -44,7 +44,7 @@ function WarpDialogue:OnIncomingData(id, pkt)
         self:_AppendInteraction(Choice:Choice())
     elseif id == 0x05C then
         block = true
-        self._menu = MenuFactory.CreateExtraMenu(pkt, self._menu, self._zone_idx)
+        self._menu = MenuFactory.CreateExtraMenu(pkt, self._menu, self._zone.idx)
         self:_AppendInteraction(Choice:Choice())
     elseif id == 0x00B then
         block = false
@@ -61,6 +61,7 @@ end
 
 --------------------------------------------------------------------------------
 function WarpDialogue:Start()
+    log('Warping to ' .. self._zone.en)
     self:_OnSuccess()
 end
 
@@ -74,7 +75,7 @@ end
 --------------------------------------------------------------------------------
 function WarpDialogue:_OnSuccess()
     self._idx = self._idx + 1
-    local option = self._menu:OptionFor(self._zone_idx)
+    local option = self._menu:OptionFor(self._zone.idx)
     local menu_id = self._menu:Id()
     local next = self._interactions[self._idx]
 

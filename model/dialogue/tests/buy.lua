@@ -35,11 +35,14 @@ function BuyDialogueTests:SetUp()
     function packets.parse(dir, data)
         return {}
     end
+
+    function log()
+    end
 end
 
 --------------------------------------------------------------------------------
 function BuyDialogueTests:TestPacketsSent()
-    local dialogue = BuyDialogue:BuyDialogue(MockEntity:MockEntity(1234, 4), 2, 6)
+    local dialogue = BuyDialogue:BuyDialogue(MockEntity:MockEntity(1234, 4), { idx = 2, en = 'Test' }, 6)
 
     local fc = 0
     function failure()
@@ -91,7 +94,7 @@ end
 
 --------------------------------------------------------------------------------
 function BuyDialogueTests:TestSuccessCallback()
-    local dialogue = BuyDialogue:BuyDialogue(MockEntity:MockEntity(1234, 4), 2)
+    local dialogue = BuyDialogue:BuyDialogue(MockEntity:MockEntity(1234, 4), { idx = 2, en = 'Test' }, 1)
 
     local fc = 0
     function failure()
@@ -126,7 +129,7 @@ end
 
 --------------------------------------------------------------------------------
 function BuyDialogueTests:TestDialogueFailsOnEarly52()
-    local dialogue = BuyDialogue:BuyDialogue(MockEntity:MockEntity(1234, 4), 2)
+    local dialogue = BuyDialogue:BuyDialogue(MockEntity:MockEntity(1234, 4), { idx = 2, en = 'Test' }, 1)
 
     local fc = 0
     function failure()

@@ -62,7 +62,7 @@ function BuyCommandTests:TestSuccessCallbackCalled()
         fc = fc + 1
     end
 
-    local c = BuyCommand:BuyCommand(1234, 1, 1, 1)
+    local c = BuyCommand:BuyCommand(1234, { idx = 1, en = 'Test' }, 1, 1)
     c:SetSuccessCallback(success)
     c:SetFailureCallback(failure)
     c()
@@ -88,7 +88,7 @@ end
 
 --------------------------------------------------------------------------------
 function BuyCommandTests:TestTypeIsBuyCommand()
-    local c = BuyCommand:BuyCommand(1234, 8973, 1)
+    local c = BuyCommand:BuyCommand(1234, { idx = 1, en = 'Test' }, 1)
     LuaUnit.assertEquals(c:Type(), 'BuyCommand')
 end
 

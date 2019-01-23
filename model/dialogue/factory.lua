@@ -7,7 +7,7 @@ local WarpDialogue = require('model/dialogue/warp')
 local DialogueFactory = {}
 
 --------------------------------------------------------------------------------
-function DialogueFactory.CreateWarpDialogue(npc, zone_idx)
+function DialogueFactory.CreateWarpDialogue(npc, zone)
     if not npc or npc:Type() == 'NilEntity' then
         log('Unable to find unity npc')
         return NilDialogue:NilDialogue()
@@ -18,16 +18,16 @@ function DialogueFactory.CreateWarpDialogue(npc, zone_idx)
         return NilDialogue:NilDialogue()
     end
 
-    if not zone_idx or zone_idx < 0 then
+    if not zone or zone.idx < 0 then
         log('Cannot warp to zone')
         return NilDialogue:NilDialogue()
     end
 
-    return WarpDialogue:WarpDialogue(npc, zone_idx)
+    return WarpDialogue:WarpDialogue(npc, zone)
 end
 
 --------------------------------------------------------------------------------
-function DialogueFactory.CreateBuyDialogue(npc, player, item_idx, count)
+function DialogueFactory.CreateBuyDialogue(npc, player, item, count)
     if not npc or npc:Type() == 'NilEntity' then
         log('Unable to find npc')
         return NilDialogue:NilDialogue()
@@ -43,7 +43,7 @@ function DialogueFactory.CreateBuyDialogue(npc, player, item_idx, count)
         return NilDialogue:NilDialogue()
     end
 
-    if not item_idx then
+    if not item or item.idx < 0 then
         log('Bad item id')
         return NilDialogue:NilDialogue()
     end
@@ -58,7 +58,7 @@ function DialogueFactory.CreateBuyDialogue(npc, player, item_idx, count)
         return NilDialogue:NilDialogue()
     end
 
-    return BuyDialogue:BuyDialogue(npc, item_idx, count)
+    return BuyDialogue:BuyDialogue(npc, item, count)
 end
 
 return DialogueFactory

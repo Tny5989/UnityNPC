@@ -48,13 +48,13 @@ end
 
 --------------------------------------------------------------------------------
 function DialogueFactoryTests:TestNilDialogueCreatedWhenBadNpc()
-    local dialogue = DialogueFactory.CreateWarpDialogue(nil, 2)
+    local dialogue = DialogueFactory.CreateWarpDialogue(nil, { idx = 1, en = 'Test' })
     LuaUnit.assertEquals(dialogue:Type(), 'NilDialogue')
 end
 
 --------------------------------------------------------------------------------
 function DialogueFactoryTests:TestNilDialogueCreatedWhenNilNpc()
-    local dialogue = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(), 2)
+    local dialogue = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(), { idx = 1, en = 'Test' })
     LuaUnit.assertEquals(dialogue:Type(), 'NilDialogue')
 end
 
@@ -66,7 +66,7 @@ end
 
 --------------------------------------------------------------------------------
 function DialogueFactoryTests:TestNilDialogueCreatedWhenNegativeZone()
-    local dialogue = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(1234), -1)
+    local dialogue = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(1234), { idx = -1, en = 'Test' })
     LuaUnit.assertEquals(dialogue:Type(), 'NilDialogue')
 end
 
@@ -76,7 +76,7 @@ function DialogueFactoryTests:TestNilDialogueCreatedWhenBadEntity()
         return nil
     end
 
-    local key = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(1234), 2)
+    local key = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(1234), { idx = 1, en = 'Test' })
     LuaUnit.assertEquals(key:Type(), 'NilDialogue')
 end
 
@@ -86,13 +86,13 @@ function DialogueFactoryTests:TestNilDialogueCreatedWhenFarAway()
         return { id = id, index = 4321, distance = 2000, valid_target = true }
     end
 
-    local key = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(1234), 2)
+    local key = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(1234), { idx = 1, en = 'Test' })
     LuaUnit.assertEquals(key:Type(), 'NilDialogue')
 end
 
 --------------------------------------------------------------------------------
 function DialogueFactoryTests:TestWarpDialogueCreatedWhenValidParams()
-    local dialogue = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(1234), 2)
+    local dialogue = DialogueFactory.CreateWarpDialogue(EntityFactory.CreateMob(1234), { idx = 1, en = 'Test' })
     LuaUnit.assertEquals(dialogue:Type(), 'WarpDialogue')
 end
 
@@ -109,7 +109,7 @@ end
 function DialogueFactoryTests:TestNilDialogueCreatedWhenBadPlayer_Buy()
     local bag = NilInventory:NilInventory()
     local entity = MockEntity:MockEntity(1234, 4321, 0, bag)
-    local dialogue = DialogueFactory.CreateBuyDialogue(entity, nil, 2, 6)
+    local dialogue = DialogueFactory.CreateBuyDialogue(entity, nil, { idx = 1, en = 'Test' }, 6)
     LuaUnit.assertEquals(dialogue:Type(), 'NilDialogue')
 end
 
@@ -118,7 +118,7 @@ function DialogueFactoryTests:TestNilDialogueCreatedWhenNilNpc_Buy()
     local items = { { id = 2, index = 1 , count = 1 }, max = 2, count = 1 }
     local bag = PlayerInventory:PlayerInventory(items)
     local entity = MockEntity:MockEntity(1234, 4321, 0, bag)
-    local dialogue = DialogueFactory.CreateBuyDialogue(NilEntity:NilEntity(), entity, 2, 6)
+    local dialogue = DialogueFactory.CreateBuyDialogue(NilEntity:NilEntity(), entity, { idx = 1, en = 'Test' }, 6)
     LuaUnit.assertEquals(dialogue:Type(), 'NilDialogue')
 end
 
@@ -126,7 +126,7 @@ end
 function DialogueFactoryTests:TestNilDialogueCreatedWhenNilPlayer_Buy()
     local bag = NilInventory:NilInventory()
     local entity = MockEntity:MockEntity(1234, 4321, 0, bag)
-    local dialogue = DialogueFactory.CreateBuyDialogue(entity, NilEntity:NilEntity(), 2, 6)
+    local dialogue = DialogueFactory.CreateBuyDialogue(entity, NilEntity:NilEntity(), { idx = 1, en = 'Test' }, 6)
     LuaUnit.assertEquals(dialogue:Type(), 'NilDialogue')
 end
 
@@ -137,7 +137,7 @@ function DialogueFactoryTests:TestNilDialogueCreatedWhenFarAway_Buy()
     local player = MockEntity:MockEntity(1234, 4321, 0, pbag)
     local bag = NilInventory:NilInventory()
     local mob = MockEntity:MockEntity(1234, 4321, 30, bag)
-    local dialogue = DialogueFactory.CreateBuyDialogue(mob, player, 2, 6)
+    local dialogue = DialogueFactory.CreateBuyDialogue(mob, player, { idx = 1, en = 'Test' }, 6)
     LuaUnit.assertEquals(dialogue:Type(), 'NilDialogue')
 end
 
@@ -159,7 +159,7 @@ function DialogueFactoryTests:TestNilDialogueCreatedWhenBadItemCount_Buy()
     local player = MockEntity:MockEntity(1234, 4321, 0, pbag)
     local bag = NilInventory:NilInventory()
     local mob = MockEntity:MockEntity(1234, 4321, 5, bag)
-    local dialogue = DialogueFactory.CreateBuyDialogue(mob, player, 2)
+    local dialogue = DialogueFactory.CreateBuyDialogue(mob, player, { idx = 1, en = 'Test' })
     LuaUnit.assertEquals(dialogue:Type(), 'NilDialogue')
 end
 
@@ -170,7 +170,7 @@ function DialogueFactoryTests:TestNilDialogueCreatedWhenFullInventory_Buy()
     local player = MockEntity:MockEntity(1234, 4321, 0, pbag)
     local bag = NilInventory:NilInventory()
     local mob = MockEntity:MockEntity(1234, 4321, 5, bag)
-    local dialogue = DialogueFactory.CreateBuyDialogue(mob, player, 2, 6)
+    local dialogue = DialogueFactory.CreateBuyDialogue(mob, player, { idx = 1, en = 'Test' }, 6)
     LuaUnit.assertEquals(dialogue:Type(), 'NilDialogue')
 end
 
@@ -181,7 +181,7 @@ function DialogueFactoryTests:TestBuyDialogueCreatedWhenValidParams()
     local player = MockEntity:MockEntity(1234, 4321, 0, pbag)
     local bag = NilInventory:NilInventory()
     local mob = MockEntity:MockEntity(1234, 4321, 5, bag)
-    local dialogue = DialogueFactory.CreateBuyDialogue(mob, player, 2, 6)
+    local dialogue = DialogueFactory.CreateBuyDialogue(mob, player, { idx = 1, en = 'Test' }, 6)
     LuaUnit.assertEquals(dialogue:Type(), 'BuyDialogue')
 end
 

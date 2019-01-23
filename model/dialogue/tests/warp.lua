@@ -36,12 +36,15 @@ function WarpDialogueTests:SetUp()
     function packets.parse(dir, data)
         return {}
     end
+
+    function log()
+    end
 end
 
 --------------------------------------------------------------------------------
 function WarpDialogueTests:TestPacketsSent()
     local npc = MockEntity:MockEntity(1234, 4, 11)
-    local dialogue = WarpDialogue:WarpDialogue(npc, 2)
+    local dialogue = WarpDialogue:WarpDialogue(npc, { idx = 1, en = 'Test' })
 
     local fc = 0
     function failure()
@@ -88,7 +91,7 @@ end
 --------------------------------------------------------------------------------
 function WarpDialogueTests:TestDialogueFailsOnEarly52()
     local npc = MockEntity:MockEntity(1234, 4, 11)
-    local dialogue = WarpDialogue:WarpDialogue(npc)
+    local dialogue = WarpDialogue:WarpDialogue(npc, { idx = 1, en = 'Test' })
 
     local fc = 0
     function failure()

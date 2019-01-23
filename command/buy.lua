@@ -9,17 +9,17 @@ local BuyCommand = NilCommand:NilCommand()
 BuyCommand.__index = BuyCommand
 
 --------------------------------------------------------------------------------
-function BuyCommand:BuyCommand(id, idx, zone, count)
+function BuyCommand:BuyCommand(id, item, zone, count)
     local o = NilCommand:NilCommand()
     setmetatable(o, self)
     o._id = id
-    o._idx = idx
+    o._item = item
     o._zone = zone
     o._count = count
     o._type = 'BuyCommand'
 
     o._dialogue = DialogueFactory.CreateBuyDialogue(EntityFactory.CreateMob(o._id, o._zone),
-        EntityFactory.CreatePlayer(), o._idx, o._count)
+        EntityFactory.CreatePlayer(), o._item, o._count)
     o._dialogue:SetSuccessCallback(function() o._on_success() end)
     o._dialogue:SetFailureCallback(function() o._on_failure() end)
 

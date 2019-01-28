@@ -45,7 +45,7 @@ function BuyDialogue:OnIncomingData(id, pkt)
         self:_AppendInteraction(Choice:Choice())
     elseif id == 0x05C then
         block = true
-        self._menu = MenuFactory.CreateExtraMenu(pkt, self._menu, self._item.idx, self._count)
+        self._menu = MenuFactory.CreateExtraMenu(pkt, self._menu, self._item.idx, self._count, self._item.type)
         self:_AppendInteraction(Choice:Choice())
     end
 

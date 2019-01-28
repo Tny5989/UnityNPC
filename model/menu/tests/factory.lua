@@ -122,7 +122,7 @@ function MenuFactoryTests:TestItemMenuCreatedWhenLastMenuWasBuy()
         return {}
     end
 
-    local menu = MenuFactory.CreateExtraMenu({}, BuyMenu:BuyMenu(), 0, 0)
+    local menu = MenuFactory.CreateExtraMenu({}, BuyMenu:BuyMenu(), 0, 0, 'normal')
     LuaUnit.assertEquals(menu:Type(), 'ItemMenu')
 end
 
@@ -132,7 +132,7 @@ function MenuFactoryTests:TestCountMenuCreatedWhenLastMenuWasItem()
         return {}
     end
 
-    local menu = MenuFactory.CreateExtraMenu({}, ItemMenu:ItemMenu(0, 0), 0, 0)
+    local menu = MenuFactory.CreateExtraMenu({}, ItemMenu:ItemMenu(0, 0), 0, 0, 'normal')
     LuaUnit.assertEquals(menu:Type(), 'CountMenu')
 end
 
@@ -142,7 +142,27 @@ function MenuFactoryTests:TestNilMenuCreatedWhenLastMenuWasCount()
         return {}
     end
 
-    local menu = MenuFactory.CreateExtraMenu({}, CountMenu:CountMenu(0, 0, 0), 0, 0)
+    local menu = MenuFactory.CreateExtraMenu({}, CountMenu:CountMenu(0, 0, 0), 0, 0, 'normal')
+    LuaUnit.assertEquals(menu:Type(), 'NilMenu')
+end
+
+--------------------------------------------------------------------------------
+function MenuFactoryTests:TestCountMenuCreatedWhenLastMenuWasBuyAndTypeIsSpecial()
+    function packets.parse(_, _)
+        return {}
+    end
+
+    local menu = MenuFactory.CreateExtraMenu({}, BuyMenu:BuyMenu(0), 0, 0, 'special')
+    LuaUnit.assertEquals(menu:Type(), 'CountMenu')
+end
+
+--------------------------------------------------------------------------------
+function MenuFactoryTests:TestNilMenuCreatedWhenTypeIsUnknown()
+    function packets.parse(_, _)
+        return {}
+    end
+
+    local menu = MenuFactory.CreateExtraMenu({}, BuyMenu:BuyMenu(0), 0, 0, 'unknown')
     LuaUnit.assertEquals(menu:Type(), 'NilMenu')
 end
 

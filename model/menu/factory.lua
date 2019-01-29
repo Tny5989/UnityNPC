@@ -59,7 +59,7 @@ function MenuFactory.CreateBuyMenu(pkt)
 end
 
 --------------------------------------------------------------------------------
-function MenuFactory.CreateExtraMenu(pkt, last_menu, v1, v2)
+function MenuFactory.CreateExtraMenu(pkt, last_menu, v1, v2, v3)
     if not pkt or not last_menu or not packets then
         return NilMenu:NilMenu()
     end
@@ -81,16 +81,22 @@ function MenuFactory.CreateExtraMenu(pkt, last_menu, v1, v2)
     end
 
     if last_menu:Type() == 'BuyMenu' then
-        if not v1 then
+        if not v1 or not v3 then
             return NilMenu:NilMenu(last_menu:Id())
         else
-            return ItemMenu:ItemMenu(last_menu:Id(), v1)
+            if v3 == 'normal' then
+                return ItemMenu:ItemMenu(last_menu:Id(), v1)
+            elseif v3 == 'special' then
+                return CountMenu:CountMenu(last_menu:Id(), v1, v2, 9)
+            else
+                return NilMenu:NilMenu(last_menu:Id())
+            end
         end
     elseif last_menu:Type() == 'ItemMenu' then
         if not v1 or not v2 then
             return NilMenu:NilMenu(last_menu:Id())
         else
-            return CountMenu:CountMenu(last_menu:Id(), v1, v2)
+            return CountMenu:CountMenu(last_menu:Id(), v1, v2, 4)
         end
     end
 

@@ -31,9 +31,9 @@ Items.Values = {}
 Items.Values['']   = { id = 0000, idx = 0, en = '' }
 
 -- Items
-Items.Values[8973] = { id = 8973, idx = 01, type = "normal",  en = 'SP Gobbie Key' }
-Items.Values[4181] = { id = 4181, idx = 02, type = "normal", en = 'Warp Scroll' }
-Items.Values[5945] = { id = 5945, idx = 12, type = "normal", en = 'Prize Powder' }
+Items.Values[8973] = { id = 8973, idx = 01, type = 'normal', en = 'SP Gobbie Key' }
+Items.Values[4181] = { id = 4181, idx = 02, type = 'normal', en = 'Warp Scroll' }
+Items.Values[5945] = { id = 5945, idx = 12, type = 'normal', en = 'Prize Powder' }
 
 -- Special Items
 Items.Values[8979] = { id = 8979, idx = 00, type = 'special', en = 'Imperator\'s Wing' }

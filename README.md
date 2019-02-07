@@ -14,7 +14,8 @@ Aliases:
 Action                | Addon Command
 --------------------- | -----------------------------
 Buy SP Gobbie Key     | //buykeys \<count\>
-Buy Warp Scroll       | //getscroll
+Buy Prize Powder      | //buypowder \<count\>
+Buy Warp Scroll       | //buywarp
 
 \<zone\> should be replaced with zone names (you can use the in-game auto-translate feature).  
 \<item\> should be replaced with item names from [data/items.lua](https://github.com/Tny5989/UnityNPC/blob/master/data/items.lua)  

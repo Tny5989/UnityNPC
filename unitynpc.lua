@@ -1,6 +1,6 @@
 _addon.name = 'UnityNPC'
 _addon.author = 'Areint/Alzade'
-_addon.version = '1.1.0'
+_addon.version = '1.1.1'
 _addon.commands = {'unpc'}
 
 --------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ local function OnCommand(cmd, p1, p2)
         command:SetFailureCallback(OnCommandFinished)
         command()
     else
-        log('Already running a command')
+        log('Already running a complex command')
     end
 end
 

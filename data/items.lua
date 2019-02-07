@@ -47,6 +47,7 @@ Items.Values[9051] = { id = 9051, idx = 23, type = 'special', en = 'Camahueto\'s
 Items.Values[9094] = { id = 9094, idx = 33, type = 'special', en = 'Clawberry\'s Coat' }
 Items.Values[9097] = { id = 9097, idx = 35, type = 'special', en = 'Mhuufya\'s Beak' }
 Items.Values[9098] = { id = 9098, idx = 39, type = 'special', en = 'G. Grenade\s Ash' }
+Items.Values[9151] = { id = 9151, idx = 40, type = 'special', en = 'Sovereign\'s Hide' }
 Items.Values[8974] = { id = 8974, idx = 53, type = 'special', en = 'Harold\s Ore' }
 Items.Values[8975] = { id = 8975, idx = 54, type = 'special', en = 'Belinda\s Hide' }
 

@@ -1,7 +1,6 @@
 local Packets = require('packets')
 
-local running = false
-local last = { pkt = nil, time = 0 }
+local last = nil
 
 --------------------------------------------------------------------------------
 -- Interprets a section of data as a number.
@@ -34,18 +33,18 @@ end
 
 --------------------------------------------------------------------------------
 function Packets.start()
-    running = true
+    last = { pkt = nil, time = 0 }
     Packets._update()
 end
 
 --------------------------------------------------------------------------------
 function Packets.stop()
-    running = false
+    last = nil
 end
 
 --------------------------------------------------------------------------------
 function Packets._update()
-    if not running then
+    if not last then
         return
     end
 
@@ -60,7 +59,9 @@ end
 
 --------------------------------------------------------------------------------
 function Packets.send(pkt)
-    last = { pkt = pkt, time = os.time() }
+    if last then
+        last = { pkt = pkt, time = os.time() }
+    end
     Packets.inject(pkt)
 end
 

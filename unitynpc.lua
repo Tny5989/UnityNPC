@@ -1,6 +1,6 @@
 _addon.name = 'UnityNPC'
 _addon.author = 'Areint/Alzade'
-_addon.version = '1.1.1'
+_addon.version = '1.1.2'
 _addon.commands = {'unpc'}
 
 --------------------------------------------------------------------------------
@@ -20,6 +20,7 @@ local command = NilCommand:NilCommand()
 local function OnCommandFinished()
     command = NilCommand:NilCommand()
     packets.stop()
+    log('Finished')
 end
 
 --------------------------------------------------------------------------------

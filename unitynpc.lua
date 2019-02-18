@@ -19,6 +19,7 @@ local command = NilCommand:NilCommand()
 --------------------------------------------------------------------------------
 local function OnCommandFinished()
     command = NilCommand:NilCommand()
+    packets.stop()
 end
 
 --------------------------------------------------------------------------------
@@ -33,6 +34,7 @@ local function OnCommand(cmd, p1, p2)
         command = CommandFactory.CreateCommand(cmd, p1, p2)
         command:SetSuccessCallback(OnCommandFinished)
         command:SetFailureCallback(OnCommandFinished)
+        packets.start()
         command()
     else
         log('Already running a complex command')

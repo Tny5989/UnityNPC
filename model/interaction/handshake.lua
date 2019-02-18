@@ -29,9 +29,11 @@ end
 --------------------------------------------------------------------------------
 function Handshake:OnIncomingData(id, _)
     if id == 0x052 then
+        packets.clear()
         self._on_failure()
         return true
     elseif id == 0x034 or id == 0x032 then
+        packets.clear()
         self._on_success()
         return true
     else
@@ -50,7 +52,7 @@ end
 function Handshake:__call(data)
     local pkts = self:_GeneratePackets(data)
     for _, pkt in pairs(pkts) do
-        packets.inject(pkt)
+        packets.send(pkt)
     end
 end
 

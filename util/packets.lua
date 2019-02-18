@@ -50,7 +50,7 @@ function Packets._update()
     end
 
     local time = os.time()
-    if last.pkt and ((time - last.pkt.time) >= 5) then
+    if last.pkt and ((time - last.time) >= 5) then
         log('Resending packet')
         Packets.send(last.pkt)
     end

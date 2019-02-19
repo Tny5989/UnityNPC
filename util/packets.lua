@@ -40,7 +40,6 @@ function Packets.is_duplicate(id, pkt)
             duplicates[id] = pid
             return false
         else
-            log('Duplicate Packet')
             return true
         end
     end

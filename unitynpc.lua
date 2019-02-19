@@ -1,6 +1,6 @@
 _addon.name = 'UnityNPC'
 _addon.author = 'Areint/Alzade'
-_addon.version = '1.1.1'
+_addon.version = '1.1.5'
 _addon.commands = {'unpc'}
 
 --------------------------------------------------------------------------------
@@ -41,7 +41,11 @@ end
 
 --------------------------------------------------------------------------------
 local function OnIncomingData(id, _, pkt, b, i)
-    return command:OnIncomingData(id, pkt)
+    if not packets.is_duplicate(id, pkt) then
+        return command:OnIncomingData(id, pkt)
+    else
+        return false
+    end
 end
 
 --------------------------------------------------------------------------------

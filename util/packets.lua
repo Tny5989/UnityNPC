@@ -1,5 +1,8 @@
 local Packets = require('packets')
 
+local last_packets = {}
+local tracking = {[0x032] = true, [0x034] = true, [0x052] = true, [0x05C] = true, [0x00B] = true}
+
 --------------------------------------------------------------------------------
 -- Interprets a section of data as a number.
 --
@@ -27,6 +30,18 @@ function Packets.get_bit_packed(dat_string, start, stop)
         c_count = c_count - 1
     end
     return newval
+end
+
+--------------------------------------------------------------------------------
+function Packets.is_duplicate(id, pkt)
+    if tracking[id] then
+        local pid = Packets.get_bit_packed(pkt, 0, 32)
+        if last_packets[id] and last_packets[id] == pid then
+            return true
+        end
+        last_packets[id] = pid
+    end
+    return false
 end
 
 return Packets

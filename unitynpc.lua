@@ -1,6 +1,6 @@
 _addon.name = 'UnityNPC'
 _addon.author = 'Areint/Alzade'
-_addon.version = '1.1.4'
+_addon.version = '1.1.5'
 _addon.commands = {'unpc'}
 
 --------------------------------------------------------------------------------

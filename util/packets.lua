@@ -1,6 +1,7 @@
 local Packets = require('packets')
 
-local last = nil
+local duplicates = {}
+local tracking = {[0x032] = true, [0x034] = true, [0x052] = true, [0x05C] = true}
 
 --------------------------------------------------------------------------------
 -- Interprets a section of data as a number.
@@ -32,42 +33,18 @@ function Packets.get_bit_packed(dat_string, start, stop)
 end
 
 --------------------------------------------------------------------------------
-function Packets.start()
-    last = { pkt = nil, time = 0 }
-    Packets._update()
-end
-
---------------------------------------------------------------------------------
-function Packets.stop()
-    last = nil
-end
-
---------------------------------------------------------------------------------
-function Packets._update()
-    if not last then
-        return
+function Packets.is_duplicate(id, pkt)
+    if tracking[id] then
+        local pid = Packets.get_bit_packed(pkt, 0, 32)
+        if not duplicates[id] or duplicates[id] ~= pid then
+            duplicates[id] = pid
+            return false
+        else
+            log('Duplicate Packet')
+            return true
+        end
     end
-
-    local time = os.time()
-    if last.pkt and ((time - last.time) >= 5) then
-        log('Resending packet')
-        Packets.send(last.pkt)
-    end
-
-    coroutine.schedule(Packets._update, 1)
-end
-
---------------------------------------------------------------------------------
-function Packets.send(pkt)
-    if last then
-        last = { pkt = pkt, time = os.time() }
-    end
-    Packets.inject(pkt)
-end
-
---------------------------------------------------------------------------------
-function Packets.clear()
-    last = { pkt = nil, time = 0 }
+    return false
 end
 
 return Packets

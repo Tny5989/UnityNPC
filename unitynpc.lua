@@ -1,6 +1,6 @@
 _addon.name = 'UnityNPC'
 _addon.author = 'Areint/Alzade'
-_addon.version = '1.1.2'
+_addon.version = '1.1.3'
 _addon.commands = {'unpc'}
 
 --------------------------------------------------------------------------------
@@ -19,7 +19,6 @@ local command = NilCommand:NilCommand()
 --------------------------------------------------------------------------------
 local function OnCommandFinished()
     command = NilCommand:NilCommand()
-    packets.stop()
     log('Finished')
 end
 
@@ -35,7 +34,6 @@ local function OnCommand(cmd, p1, p2)
         command = CommandFactory.CreateCommand(cmd, p1, p2)
         command:SetSuccessCallback(OnCommandFinished)
         command:SetFailureCallback(OnCommandFinished)
-        packets.start()
         command()
     else
         log('Already running a complex command')
@@ -44,7 +42,11 @@ end
 
 --------------------------------------------------------------------------------
 local function OnIncomingData(id, _, pkt, b, i)
-    return command:OnIncomingData(id, pkt)
+    if not packets.is_duplicate(id, pkt) then
+        return command:OnIncomingData(id, pkt)
+    else
+        return false
+    end
 end
 
 --------------------------------------------------------------------------------

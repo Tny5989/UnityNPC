@@ -36,7 +36,6 @@ end
 function Choice:OnIncomingData(id, pkt)
     -- TODO failure condition? 0x052 with 5th byte set differently?
     if id == 0x052 then
-        packets.clear()
         self._on_success()
         return true
     else
@@ -55,7 +54,7 @@ end
 function Choice:__call(data)
     local pkts = self:_GeneratePackets(data)
     for _, pkt in pairs(pkts) do
-        packets.send(pkt)
+        packets.inject(pkt)
     end
 end
 

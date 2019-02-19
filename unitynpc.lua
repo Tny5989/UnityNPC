@@ -19,7 +19,6 @@ local command = NilCommand:NilCommand()
 --------------------------------------------------------------------------------
 local function OnCommandFinished()
     command = NilCommand:NilCommand()
-    log('Finished')
 end
 
 --------------------------------------------------------------------------------
